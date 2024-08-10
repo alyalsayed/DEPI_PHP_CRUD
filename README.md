@@ -2,5 +2,7 @@
 
 ## Demo
 
-<video src="https://github.com/alyalsayed/DEPI_PHP_CRUD/blob/main/demo/2024-08-11%2000-57-20.mp4">
-</video>
+
+
+https://github.com/user-attachments/assets/1d350383-1af8-45ea-9de3-f904682da484
+
