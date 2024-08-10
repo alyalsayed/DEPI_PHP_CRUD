@@ -1,0 +1,7 @@
+you should download :
+https://github.com/ChangemakerStudios/Papercut-SMTP/releases 
+to receive emails for the forgot password feature 
+
+password : 1234    to all users
+
+cookie expiry time: 30 days  
