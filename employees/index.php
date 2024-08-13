@@ -5,8 +5,7 @@ require_once "../includes/connection.php"; // Connect to the database
 $result = $connection->query('SELECT fname, lname, ssn, dno, salary FROM employee');
 $employees = $result->fetchAll(PDO::FETCH_ASSOC);
 
-
-include_once "../includes/header.php"; // Include the aside.php file
+include_once "../includes/header.php"; // Include the header.php file
 ?>
 
 <!-- Header -->
@@ -30,7 +29,6 @@ include_once "../includes/header.php"; // Include the aside.php file
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -59,11 +57,10 @@ include_once "../includes/header.php"; // Include the aside.php file
                                 <tr>
                                     <th scope='row'> <?php echo $employee['fname'] . ' ' . $employee['lname']; ?></th>
                                     <td><?php echo $employee['ssn']; ?></td>
-                                   
                                     <td>
                                         <a href="show.php?ssn=<?php echo $ssn ?>" style="color:blue">show</a>
                                         <a href="edit.php?ssn=<?php echo $ssn ?>" style="color:green">edit</a>
-                                        <a href="delete.php?ssn=<?php echo $ssn ?>" style="color:red">delete</a>
+                                        <a href="#" class="text-danger delete-btn" data-ssn="<?php echo $ssn ?>" data-toggle="modal" data-target="#confirmDeleteModal">delete</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -76,6 +73,42 @@ include_once "../includes/header.php"; // Include the aside.php file
 </div><!-- .animated -->
 </div><!-- .content -->
 
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this employee? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="get" action="delete.php">
+                    <input type="hidden" name="ssn" id="employeeSSN">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
 include_once "../includes/footer.php";
 ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const ssn = this.getAttribute('data-ssn');
+                document.getElementById('employeeSSN').value = ssn;
+            });
+        });
+    });
+</script>
