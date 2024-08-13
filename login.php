@@ -10,10 +10,36 @@ if (file_exists($path)) {
 
 session_start();
 
-// Check if the user is already logged in
+// Check if the user is already logged in via session
 if (isset($_SESSION['id'])) {
     header("location: index.php");
     exit();
+}
+
+// Check if the user has a valid remember_me cookie
+if (isset($_COOKIE['remember_me'])) {
+    global $connection; // Ensure $connection is available here
+
+    $userId = $_COOKIE['remember_me'];
+
+    // Validate the user ID from the cookie against the database
+    $result = $connection->query("SELECT * FROM users WHERE id='$userId' AND is_admin='1'");
+    $data = $result->fetch(PDO::FETCH_ASSOC);
+    $count = $result->rowCount();
+
+    if ($count > 0) {
+        $_SESSION['id'] = $data['id'];
+        $_SESSION['is_admin'] = $data['is_admin'];
+
+        // Update users_activity table with last activity time
+        $stmt = $connection->prepare("
+        UPDATE users_activity SET last_activity = NOW() WHERE user_id = :id
+    ");
+        $stmt->execute(['id' => $_SESSION['id']]);
+
+        header("location: index.php");
+        exit();
+    }
 }
 
 // Handle login form submission
@@ -49,24 +75,6 @@ if (isset($_POST['login'])) {
         exit();
     } else {
         $error = "Invalid email or password...";
-    }
-}
-
-// Check if 'remember_me' cookie is set to auto-login
-if (isset($_COOKIE['remember_me'])) {
-    global $connection; // Ensure $connection is available here
-
-    $userId = $_COOKIE['remember_me'];
-
-    // Validate the cookie value and log in the user
-    $stmt = $connection->prepare("SELECT * FROM users WHERE id = :id AND is_admin = '1'");
-    $stmt->execute(['id' => $userId]);
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($data) {
-        $_SESSION['id'] = $data['id'];
-        header("location: index.php");
-        exit();
     }
 }
 ?>
