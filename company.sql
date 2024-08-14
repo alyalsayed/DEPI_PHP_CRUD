@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2024 at 09:25 PM
+-- Generation Time: Aug 14, 2024 at 02:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,24 +85,42 @@ CREATE TABLE `employee` (
   `gender` enum('m','f') NOT NULL,
   `salary` decimal(7,2) DEFAULT NULL,
   `superssn` int(10) UNSIGNED DEFAULT NULL,
-  `dno` tinyint(3) UNSIGNED DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `dno` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`fname`, `lname`, `ssn`, `bdate`, `address`, `gender`, `salary`, `superssn`, `dno`, `image`) VALUES
-('Aly', 'Alsayed', 123, '2003-05-05', '13 hendawi st', 'm', 1234.00, 321654, 20, '123Walter_White_S5B.png'),
-('ahmed', 'ali', 112233, '1965-01-01', '15 Ali fahmy St.Giza', 'm', 1310.00, 223344, 10, 'user111.jpg'),
-('hanaa', 'sobhy', 123456, '1973-03-18', '38 Abdel Khalik Tharwat St. Downtown.Cairo', 'f', 800.00, 321654, 10, 'user123.jpg'),
-('kamel', 'mohamed', 223344, '1970-10-15', '38 Mohy el dien abo el Ezz  St.Cairo', 'm', 1800.00, 223344, 10, ''),
-('amr', 'omran', 321654, '1963-09-14', '44 Hilopolis.Cairo', 'm', 2500.00, 112233, 10, ''),
-('edward', 'hanna', 512463, '1972-08-19', '18 Abaas El 3akaad St. Nasr City.Cairo', 'm', 1500.00, 321654, 20, ''),
-('maged', 'raoof', 521634, '1980-04-06', '18 Kholosi st.Shobra.Cairo', 'm', 1000.00, 321654, 30, ''),
-('mariam', 'adel', 669955, '1982-06-12', '269 El-Haram st. Giza', 'f', 750.00, 512463, 20, ''),
-('noha', 'mohamed', 968574, '1975-02-01', '55 Orabi St. El Mohandiseen .Cairo', 'f', 1600.00, 968574, 30, '');
+INSERT INTO `employee` (`fname`, `lname`, `ssn`, `bdate`, `address`, `gender`, `salary`, `superssn`, `dno`) VALUES
+('ahmed', 'ali', 112233, '1965-01-01', '15 Ali fahmy St.Giza', 'm', 1310.00, 223344, 10),
+('hanaa', 'sobhy', 123456, '1973-03-18', '38 Abdel Khalik Tharwat St. Downtown.Cairo', 'f', 800.00, 321654, 10),
+('kamel', 'mohamed', 223344, '1970-10-15', '38 Mohy el dien abo el Ezz  St.Cairo', 'm', 1800.00, 223344, 10),
+('amr', 'omran', 321654, '1963-09-14', '44 Hilopolis.Cairo', 'm', 2500.00, 112233, 10),
+('edward', 'hanna', 512463, '1972-08-19', '18 Abaas El 3akaad St. Nasr City.Cairo', 'm', 1500.00, 321654, 20),
+('maged', 'raoof', 521634, '1980-04-06', '18 Kholosi st.Shobra.Cairo', 'm', 1000.00, 321654, 30),
+('mariam', 'adel', 669955, '1982-06-12', '269 El-Haram st. Giza', 'f', 750.00, 512463, 20),
+('noha', 'mohamed', 968574, '1975-02-01', '55 Orabi St. El Mohandiseen .Cairo', 'f', 1600.00, 968574, 30);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_images`
+--
+
+CREATE TABLE `employee_images` (
+  `id` int(11) NOT NULL,
+  `employee_ssn` int(10) UNSIGNED DEFAULT NULL,
+  `image_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_images`
+--
+
+INSERT INTO `employee_images` (`id`, `employee_ssn`, `image_name`) VALUES
+(14, 968574, '968574_0.jpg'),
+(15, 968574, '968574_1.jpg');
 
 -- --------------------------------------------------------
 
@@ -169,7 +187,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`email`, `password`, `is_admin`, `id`) VALUES
-('admin1@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, 1),
+('admin1@gmail.com', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 1, 1),
 ('user1@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, 2),
 ('admin2@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, 4);
 
@@ -191,11 +209,12 @@ CREATE TABLE `users_activity` (
 --
 
 INSERT INTO `users_activity` (`id`, `user_id`, `last_login`, `last_activity`) VALUES
-(1, 1, '2024-08-10 19:17:01', '2024-08-10 19:45:06'),
-(2, 4, '2024-08-10 19:26:18', '2024-08-10 19:38:12'),
-(3, 2, '2024-08-10 19:38:46', '2024-08-10 19:38:46'),
-(4, 1, '2024-08-10 19:49:08', '2024-08-10 19:49:08'),
-(5, 1, '2024-08-10 22:17:33', '2024-08-10 22:17:33');
+(30, 1, '2024-08-14 01:22:23', '2024-08-14 01:29:23'),
+(31, 1, '2024-08-14 01:25:37', '2024-08-14 01:29:23'),
+(32, 2, '2024-08-14 01:25:48', '2024-08-14 01:25:57'),
+(33, 1, '2024-08-14 01:26:01', '2024-08-14 01:29:23'),
+(34, 1, '2024-08-14 01:26:18', '2024-08-14 01:29:23'),
+(35, 1, '2024-08-14 01:29:20', '2024-08-14 01:29:23');
 
 -- --------------------------------------------------------
 
@@ -259,6 +278,13 @@ ALTER TABLE `employee`
   ADD KEY `fk_dno_employee` (`dno`);
 
 --
+-- Indexes for table `employee_images`
+--
+ALTER TABLE `employee_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employee_ssn` (`employee_ssn`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -299,10 +325,16 @@ ALTER TABLE `works_for`
 --
 
 --
+-- AUTO_INCREMENT for table `employee_images`
+--
+ALTER TABLE `employee_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -314,7 +346,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_activity`
 --
 ALTER TABLE `users_activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
@@ -338,6 +370,12 @@ ALTER TABLE `dependent`
 ALTER TABLE `employee`
   ADD CONSTRAINT `fk_dno_employee` FOREIGN KEY (`dno`) REFERENCES `department` (`dnum`),
   ADD CONSTRAINT `fk_superssn_employee` FOREIGN KEY (`superssn`) REFERENCES `employee` (`ssn`);
+
+--
+-- Constraints for table `employee_images`
+--
+ALTER TABLE `employee_images`
+  ADD CONSTRAINT `employee_images_ibfk_1` FOREIGN KEY (`employee_ssn`) REFERENCES `employee` (`ssn`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `password_resets`
